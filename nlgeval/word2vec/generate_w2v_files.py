@@ -13,7 +13,7 @@ from nlgeval.word2vec.glove2word2vec import glove2word2vec
 
 def txt2bin(filename):
     m = KeyedVectors.load_word2vec_format(filename)
-    m.vocab[next(six.iterkeys(m.vocab))].sample_int = 1
+    m.set_vecattr(next(six.iterkeys(m.key_to_index)), "sample_int", 1)
     m.save(filename.replace('txt', 'bin'), separately=None)
     KeyedVectors.load(filename.replace('txt', 'bin'), mmap='r')
 
