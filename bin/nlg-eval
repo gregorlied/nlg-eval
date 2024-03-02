@@ -113,8 +113,8 @@ def setup(data_path):
         target_dir=data_path
     ))
     downloads.append(dict(
-            url='http://nlp.stanford.edu/software/stanford-corenlp-full-2015-12-09.zip',
-            target_dir=CODE_PATH
+        url='https://nlp.stanford.edu/software/stanford-corenlp-full-2015-12-09.zip',
+        target_dir=CODE_PATH
     ))   
     downloads.append(dict(
         # url='http://www.cs.toronto.edu/~rkiros/models/utable.npy',
