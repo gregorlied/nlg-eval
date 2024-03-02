@@ -108,7 +108,8 @@ def setup(data_path):
 
     # Skip-thoughts data.
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/dictionary.txt',
+        # url='http://www.cs.toronto.edu/~rkiros/models/dictionary.txt',
+        url='https://drive.google.com/file/d/1k_kcWsfdsnxOOwA6Yq0ZR3GfavON1EB4/view?usp=drive_link',
         target_dir=data_path
     ))
     downloads.append(dict(
@@ -116,27 +117,33 @@ def setup(data_path):
             target_dir=CODE_PATH
     ))   
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/utable.npy',
+        # url='http://www.cs.toronto.edu/~rkiros/models/utable.npy',
+        url='https://drive.google.com/file/d/1kaZa77Y9TOnXoqcur-e_W-clPyArckqa/view?usp=drive_link',
         target_dir=data_path
     ))
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/btable.npy',
+        # url='http://www.cs.toronto.edu/~rkiros/models/btable.npy',
+        url='https://drive.google.com/file/d/1EW7Z8XhmLhf93NVzZulot3LiDQm5Pr8I/view?usp=drive_link',
         target_dir=data_path
     ))
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/uni_skip.npz',
+        # url='http://www.cs.toronto.edu/~rkiros/models/uni_skip.npz',
+        url='https://drive.google.com/file/d/1c2jDk4QiCo5iOR3zKLea7dk7JEnpYyLi/view?usp=drive_link',
         target_dir=data_path
     ))
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/uni_skip.npz.pkl',
+        # url='http://www.cs.toronto.edu/~rkiros/models/uni_skip.npz.pkl',
+        url='https://drive.google.com/file/d/1drrpsLAeWk0KNDTHnpdFB9kggDt0LYh-/view?usp=drive_link',
         target_dir=data_path
     ))
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/bi_skip.npz',
+        # url='http://www.cs.toronto.edu/~rkiros/models/bi_skip.npz',
+        url='https://drive.google.com/file/d/1j6qTNbLcR5DSNRU9wO379xzSI10HEtoh/view?usp=drive_link',
         target_dir=data_path
     ))
     downloads.append(dict(
-        url='http://www.cs.toronto.edu/~rkiros/models/bi_skip.npz.pkl',
+        # url='http://www.cs.toronto.edu/~rkiros/models/bi_skip.npz.pkl',
+        url='https://drive.google.com/file/d/1_Q35ITK8YZr0tfwKR4l5AATEX0srVh0H/view?usp=drive_link',
         target_dir=data_path
     ))
 
