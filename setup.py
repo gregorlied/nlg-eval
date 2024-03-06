@@ -3,8 +3,6 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 
-import sys
-
 from setuptools import find_packages
 from setuptools import setup
 from setuptools.command.develop import develop
@@ -13,8 +11,6 @@ from setuptools.command.install import install
 
 if __name__ == '__main__':
     requirements_path = 'requirements.txt'
-    if sys.version_info[0] < 3:
-        requirements_path = 'requirements_py2.txt'
     with open(requirements_path) as f:
         install_reqs = f.read().splitlines()
 
