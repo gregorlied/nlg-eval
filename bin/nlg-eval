@@ -84,13 +84,6 @@ def setup(data_path):
 
     downloads = []
 
-    """
-    downloads.append(dict(
-        url='https://nlp.stanford.edu/software/stanford-corenlp-full-2015-12-09.zip',
-        target_dir=CODE_PATH
-    )) 
-    """  
-
     # multi-bleu.perl
     downloads.append(dict(
         url='https://raw.githubusercontent.com/moses-smt/mosesdecoder/b199e654df2a26ea58f234cbb642e89d9c1f269d/scripts/generic/multi-bleu.perl',
@@ -106,16 +99,6 @@ def setup(data_path):
     pool.map(_download_file, downloads)
     pool.close()
     pool.join()
-
-    """
-    with ZipFile(os.path.join(CODE_PATH, 'stanford-corenlp-full-2015-12-09.zip')) as z:
-        z.extractall(CODE_PATH)
-    temp_path = os.path.join(CODE_PATH,'stanford-corenlp-full-2015-12-09')
-    os.makedirs(os.path.join(CODE_PATH,'pycocoevalcap/spice/lib/'), exist_ok=True)
-    shutil.move(os.path.join(temp_path,'stanford-corenlp-3.6.0.jar'), os.path.join(CODE_PATH,'pycocoevalcap/spice/lib/stanford-corenlp-3.6.0.jar'))
-    shutil.move(os.path.join(temp_path,'stanford-corenlp-3.6.0-models.jar'),os.path.join(CODE_PATH,'pycocoevalcap/spice/lib/stanford-corenlp-3.6.0-models.jar')) 
-    os.remove(os.path.join(CODE_PATH, 'stanford-corenlp-full-2015-12-09.zip'))
-    """
 
     path = os.path.join(CODE_PATH, 'multibleu/multi-bleu.perl')
     stats = os.stat(path)
