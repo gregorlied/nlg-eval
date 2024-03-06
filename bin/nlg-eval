@@ -82,70 +82,12 @@ def setup(data_path):
     click.secho("In case of incomplete downloads, delete the directory and run `nlg-eval --setup {}' again.".format(data_path),
                fg='red')
 
-    path = os.path.join(CODE_PATH, 'word2vec/glove2word2vec.py')
-    if os.path.exists(path):
-        os.remove(path)
-
     downloads = []
 
-    if sys.version_info[0] == 2:
-        downloads.append(dict(
-            url='https://raw.githubusercontent.com/manasRK/glove-gensim/42ce46f00e83d3afa028fb6bf17ed3c90ca65fcc/glove2word2vec.py',
-            target_dir=os.path.join(CODE_PATH, 'word2vec')
-        ))
-    else:
-        downloads.append(dict(
-            url='https://raw.githubusercontent.com/robmsmt/glove-gensim/4c2224bccd61627b76c50a5e1d6afd1c82699d22/glove2word2vec.py',
-            target_dir=os.path.join(CODE_PATH, 'word2vec')
-        ))
-
-    setup_glove = not os.path.exists(os.path.join(data_path, 'glove.6B.300d.model.bin'))
-    if setup_glove:
-        downloads.append(dict(
-            url='http://nlp.stanford.edu/data/glove.6B.zip',
-            target_dir=data_path
-        ))
-
-    # Skip-thoughts data.
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/dictionary.txt',
-        url='https://drive.google.com/file/d/1k_kcWsfdsnxOOwA6Yq0ZR3GfavON1EB4/view?usp=drive_link',
-        target_dir=data_path
-    ))
     downloads.append(dict(
         url='https://nlp.stanford.edu/software/stanford-corenlp-full-2015-12-09.zip',
         target_dir=CODE_PATH
     ))   
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/utable.npy',
-        url='https://drive.google.com/file/d/1kaZa77Y9TOnXoqcur-e_W-clPyArckqa/view?usp=drive_link',
-        target_dir=data_path
-    ))
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/btable.npy',
-        url='https://drive.google.com/file/d/1EW7Z8XhmLhf93NVzZulot3LiDQm5Pr8I/view?usp=drive_link',
-        target_dir=data_path
-    ))
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/uni_skip.npz',
-        url='https://drive.google.com/file/d/1c2jDk4QiCo5iOR3zKLea7dk7JEnpYyLi/view?usp=drive_link',
-        target_dir=data_path
-    ))
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/uni_skip.npz.pkl',
-        url='https://drive.google.com/file/d/1drrpsLAeWk0KNDTHnpdFB9kggDt0LYh-/view?usp=drive_link',
-        target_dir=data_path
-    ))
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/bi_skip.npz',
-        url='https://drive.google.com/file/d/1j6qTNbLcR5DSNRU9wO379xzSI10HEtoh/view?usp=drive_link',
-        target_dir=data_path
-    ))
-    downloads.append(dict(
-        # url='http://www.cs.toronto.edu/~rkiros/models/bi_skip.npz.pkl',
-        url='https://drive.google.com/file/d/1_Q35ITK8YZr0tfwKR4l5AATEX0srVh0H/view?usp=drive_link',
-        target_dir=data_path
-    ))
 
     # multi-bleu.perl
     downloads.append(dict(
@@ -162,19 +104,6 @@ def setup(data_path):
     pool.map(_download_file, downloads)
     pool.close()
     pool.join()
-
-    if setup_glove:
-        from nlgeval.word2vec.generate_w2v_files import generate
-        with ZipFile(os.path.join(data_path, 'glove.6B.zip')) as z:
-            z.extract('glove.6B.300d.txt', data_path)
-        generate(data_path)
-        for p in [
-            os.path.join(data_path, 'glove.6B.zip'),
-            os.path.join(data_path, 'glove.6B.300d.txt'),
-            os.path.join(data_path, 'glove.6B.300d.model.txt'),
-        ]:
-            if os.path.exists(p):
-                os.remove(p)
 
     with ZipFile(os.path.join(CODE_PATH, 'stanford-corenlp-full-2015-12-09.zip')) as z:
         z.extractall(CODE_PATH)
@@ -205,9 +134,6 @@ def setup(data_path):
 @click.command()
 @click.option('--references', type=click.Path(exists=True), multiple=True, required=True, help='Path of the reference file. This option can be provided multiple times for multiple reference files.')
 @click.option('--hypothesis', type=click.Path(exists=True), required=True, help='Path of the hypothesis file.')
-@click.option('--no-overlap', is_flag=True, help='Flag. If provided, word overlap based metrics will not be computed.')
-@click.option('--no-skipthoughts', is_flag=True, help='Flag. If provided, skip-thought cosine similarity will not be computed.')
-@click.option('--no-glove', is_flag=True, help='Flag. If provided, other word embedding based metrics will not be computed.')
 def compute_metrics(hypothesis, references, no_overlap, no_skipthoughts, no_glove):
     """
     Compute nlg-eval metrics.
@@ -224,7 +150,7 @@ def compute_metrics(hypothesis, references, no_overlap, no_skipthoughts, no_glov
         sys.exit(1)
     click.secho("Using data from {}".format(data_dir), fg='green')
     click.secho("In case of broken downloads, remove the directory and run setup again.", fg='green')
-    nlgeval.compute_metrics(hypothesis, references, no_overlap, no_skipthoughts, no_glove)
+    nlgeval.compute_metrics(hypothesis, references)
 
 
 if __name__ == '__main__':
