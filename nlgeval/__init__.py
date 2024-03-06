@@ -9,7 +9,6 @@ from nlgeval.pycocoevalcap.bleu.bleu import Bleu
 from nlgeval.pycocoevalcap.cider.cider import Cider
 from nlgeval.pycocoevalcap.meteor.meteor import Meteor
 from nlgeval.pycocoevalcap.rouge.rouge import Rouge
-from nlgeval.pycocoevalcap.spice.spice import Spice
 
 # str/unicode stripping in Python 2 and 3 instead of `str.strip`.
 def _strip(s):
@@ -34,7 +33,6 @@ def compute_metrics(hypothesis, references):
         (Meteor(), "METEOR"),
         (Rouge(), "ROUGE_L"),
         (Cider(), "CIDEr"),
-        (Spice(), "SPICE")
     ]
     for scorer, method in scorers:
         score, _ = scorer.compute_score(refs, hyps)
@@ -67,8 +65,7 @@ def compute_individual_metrics(ref, hyp):
         (Bleu(4), ["Bleu_1", "Bleu_2", "Bleu_3", "Bleu_4"]),
         (Meteor(), "METEOR"),
         (Rouge(), "ROUGE_L"),
-        (Cider(), "CIDEr"),
-        (Spice(), "SPICE")            
+        (Cider(), "CIDEr"),        
     ]
     for scorer, method in scorers:
         score, _ = scorer.compute_score(refs, hyps)
@@ -91,7 +88,6 @@ class NLGEval(object):
                         'METEOR',
                         'ROUGE_L',
                         'CIDEr',
-                        'SPICE',
                     }
 
     def __init__(self, metrics_to_omit=None):
@@ -131,8 +127,6 @@ class NLGEval(object):
             self.scorers.append((Rouge(), "ROUGE_L"))
         if 'CIDEr' not in self.metrics_to_omit:
             self.scorers.append((Cider(), "CIDEr"))
-        if 'SPICE' not in self.metrics_to_omit:
-            self.scorers.append((Spice(), "SPICE"))
 
     def compute_individual_metrics(self, ref, hyp):
         assert isinstance(hyp, six.string_types)
